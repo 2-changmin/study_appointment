@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1788155163301,
+      "tag": "0000_zippy_agent_brand",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1788157964300,
+      "tag": "0001_medical_satana",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1788161108283,
+      "tag": "0002_worried_trish_tilby",
+      "breakpoints": true
+    }
+  ]
+}

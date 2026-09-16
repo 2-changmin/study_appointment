@@ -1,0 +1,14 @@
+{
+  "id": "/",
+  "name": "약속메이트",
+  "short_name": "약속메이트",
+  "description": "친구와 함께 지키는 10,000원의 약속",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f1e7",
+  "theme_color": "#17251f",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
