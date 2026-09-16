@@ -6,7 +6,7 @@ import { getChatGPTUser } from "./chatgpt-auth";
 // 계정을 추가하려면 아래 명령으로 해시를 만들어 목록에 넣으세요.
 //   node -e "console.log(require('crypto').createHash('sha256').update('주소'.toLowerCase()).digest('hex'))"
 const ALLOWED_EMAIL_HASHES = new Set([
-  "2125651a9c6938230c9e39d5c43b55cfecd1e852a310fa4864ea6b7d36a9d377",
+  "aa694ed73b7d65d4da0710db2be2d7b2f66992fec5c30b620a91722ee9b5732e",
   "bdfb7dc831a102d9dab53865eb8e0cd28c7002efeaa5f26f91f095866f0cae85",
 ]);
 
