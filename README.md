@@ -37,14 +37,9 @@ cp .env .dev.vars
 | `VAPID_PUBLIC_KEY` | 푸시 사용 시 | VAPID 공개키 |
 | `VAPID_PRIVATE_KEY` | 푸시 사용 시 | VAPID 비밀키 |
 
-배포 환경에서는 같은 값을 Cloudflare Worker의 비밀값으로 등록합니다.
+배포 환경에서는 같은 이름으로 값을 등록해야 합니다. 이 프로젝트는 `.openai/hosting.json`의 프로젝트 설정을 통해 배포되므로, 저장소에 wrangler 설정 파일을 두지 않고 호스팅 쪽 환경변수 설정에서 관리합니다.
 
-```bash
-npx wrangler secret put ALLOWED_EMAILS
-npx wrangler secret put VAPID_SUBJECT
-npx wrangler secret put VAPID_PUBLIC_KEY
-npx wrangler secret put VAPID_PRIVATE_KEY
-```
+`ALLOWED_EMAILS`가 비어 있으면 허용 목록이 비어 아무도 로그인할 수 없으니, 재배포 전에 반드시 등록하세요.
 
 ## 로컬 실행
 
