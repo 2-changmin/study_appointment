@@ -32,14 +32,18 @@ cp .env .dev.vars
 
 | 이름 | 필수 | 설명 |
 | --- | --- | --- |
-| `ALLOWED_EMAILS` | 예 | 접근을 허용할 ChatGPT 계정 이메일. 쉼표로 구분합니다. |
-| `VAPID_SUBJECT` | 푸시 사용 시 | 푸시 발송자 연락처. `mailto:주소` 형식입니다. |
+| `ALLOWED_EMAILS` | 아니요 | 접근을 허용할 ChatGPT 계정 이메일. 쉼표로 구분합니다. 지정하지 않으면 `app/allowed-users.ts`의 해시 목록을 사용합니다. |
+| `VAPID_SUBJECT` | 아니요 | 푸시 발송자 연락처. 생략하면 사이트 주소가 사용됩니다. |
 | `VAPID_PUBLIC_KEY` | 푸시 사용 시 | VAPID 공개키 |
 | `VAPID_PRIVATE_KEY` | 푸시 사용 시 | VAPID 비밀키 |
 
-배포 환경에서는 같은 이름으로 값을 등록해야 합니다. 이 프로젝트는 `.openai/hosting.json`의 프로젝트 설정을 통해 배포되므로, 저장소에 wrangler 설정 파일을 두지 않고 호스팅 쪽 환경변수 설정에서 관리합니다.
+이 프로젝트는 `.openai/hosting.json`의 프로젝트 설정을 통해 배포되며, 저장소에 wrangler 설정 파일을 두지 않습니다. 배포 환경에 값을 등록하려면 호스팅 쪽 환경변수 설정을 이용합니다.
 
-`ALLOWED_EMAILS`가 비어 있으면 허용 목록이 비어 아무도 로그인할 수 없으니, 재배포 전에 반드시 등록하세요.
+허용 계정은 환경변수 없이도 동작하도록 이메일의 SHA-256 해시를 `app/allowed-users.ts`에 넣어 두었습니다. 저장소에 실제 주소가 남지 않으면서 배포 환경 설정 없이 동작합니다. 계정을 추가하려면 해시를 만들어 목록에 넣으세요.
+
+```bash
+node -e "console.log(require('crypto').createHash('sha256').update('주소'.toLowerCase()).digest('hex'))"
+```
 
 ## 로컬 실행
 
@@ -66,7 +70,7 @@ npm run build
 
 ## 로그인과 접근 권한
 
-사이트는 ChatGPT 로그인을 통해 사용자의 이메일을 확인합니다. 허용된 이메일 목록은 `ALLOWED_EMAILS` 환경변수로 관리하고 `app/allowed-users.ts`에서 읽으며, 화면뿐 아니라 모든 데이터 API에서도 권한을 다시 검사합니다.
+사이트는 ChatGPT 로그인을 통해 사용자의 이메일을 확인합니다. 허용된 계정은 `app/allowed-users.ts`에 이메일 해시로 보관하며(`ALLOWED_EMAILS` 환경변수를 지정하면 그 목록이 우선), 화면뿐 아니라 모든 데이터 API에서도 권한을 다시 검사합니다.
 
 허용되지 않은 계정은 로그인하더라도 계획을 조회하거나 작성·수정·삭제·승인할 수 없습니다.
 
@@ -76,7 +80,7 @@ npm run build
 
 푸시 알림에는 다음 운영 환경값이 필요합니다.
 
-- `VAPID_SUBJECT`
+- `VAPID_SUBJECT` (선택, 생략하면 사이트 주소 사용)
 - `VAPID_PUBLIC_KEY`
 - `VAPID_PRIVATE_KEY`
 

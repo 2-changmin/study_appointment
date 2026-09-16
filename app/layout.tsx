@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const user = await requireChatGPTUser("/");
-  const allowed = isAllowedEmail(user.email);
+  const allowed = await isAllowedEmail(user.email);
 
   return (
     <html lang="ko">

@@ -6,13 +6,16 @@ import { members, pushSubscriptions } from "../db/schema";
 
 type PushError = Error & { statusCode?: number };
 
+// 푸시 서비스가 문제 발생 시 연락할 주소. 개인 이메일 대신 사이트 주소를 씁니다.
+// VAPID 규격은 mailto: 와 https: 를 모두 허용합니다.
+const DEFAULT_VAPID_SUBJECT = "https://yaksok-mate.leeyoonpaeng.chatgpt.site";
+
 function vapidConfig() {
   const runtimeEnv = env as unknown as Record<string, string | undefined>;
   const publicKey = runtimeEnv.VAPID_PUBLIC_KEY;
   const privateKey = runtimeEnv.VAPID_PRIVATE_KEY;
-  const subject = runtimeEnv.VAPID_SUBJECT;
-  if (!publicKey || !privateKey || !subject) return null;
-  return { subject, publicKey, privateKey };
+  if (!publicKey || !privateKey) return null;
+  return { subject: runtimeEnv.VAPID_SUBJECT ?? DEFAULT_VAPID_SUBJECT, publicKey, privateKey };
 }
 
 export function getVapidPublicKey() {
